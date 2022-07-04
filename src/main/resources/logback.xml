@@ -1,0 +1,14 @@
+<configuration>
+
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>false</withJansi>
+        <target>System.err</target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS}%n%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDERR" />
+    </root>
+</configuration>
