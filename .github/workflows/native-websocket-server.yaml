@@ -29,7 +29,7 @@ jobs:
           ./gradlew shadowJar
 
       - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: jar
           path: |
@@ -60,7 +60,7 @@ jobs:
           native-image --install-exit-handlers --no-fallback -H:ReflectionConfigurationResources=reflection-config.json -H:IncludeResources=logback.xml -jar native-websocket-server-1.0.0-all.jar
 
       - name: Archive Binary
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: native-websocket-server-darwin-amd64
           path: |
@@ -91,7 +91,7 @@ jobs:
           native-image --install-exit-handlers --no-fallback -H:ReflectionConfigurationResources=reflection-config.json -H:IncludeResources=logback.xml -jar native-websocket-server-1.0.0-all.jar
 
       - name: Archive Binary
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: native-websocket-server-linux-amd64
           path: |
@@ -126,7 +126,7 @@ jobs:
           native-image --install-exit-handlers --no-fallback -H:ReflectionConfigurationResources=reflection-config.json -H:IncludeResources=logback.xml -H:Name=native-websocket-server-1.0.0-all -jar native-websocket-server-1.0.0-all.jar
           
       - name: Archive Binary
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@v3.1.0
         with: 
           name: native-websocket-server.exe
           path: |
