@@ -91,7 +91,7 @@ jobs:
       - name: 'Build Native Image'
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           native-image --no-server --no-fallback -H:ReflectionConfigurationResources=reflection-config.json -H:IncludeResources=logback.xml -H:Name=native-websocket-server-1.0.0-all --allow-incomplete-classpath -jar native-websocket-server-1.0.0-all.jar
           
       - name: Archive Binary
