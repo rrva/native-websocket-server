@@ -16,26 +16,30 @@ package se.rrva;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.StatusCode;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
 public class EventSocket extends WebSocketAdapter
 {
+
+    private static final Logger log = LoggerFactory.getLogger(EventSocket.class);
     private final CountDownLatch closureLatch = new CountDownLatch(1);
 
     @Override
     public void onWebSocketConnect(Session sess)
     {
         super.onWebSocketConnect(sess);
-        System.out.println("Socket Connected: " + sess);
+        log.info("Socket Connected: " + sess);
     }
 
     @Override
     public void onWebSocketText(String message)
     {
         super.onWebSocketText(message);
-        System.out.println("Received TEXT message: " + message);
+        log.info("Received TEXT message: " + message);
 
         if (message.toLowerCase(Locale.US).contains("bye"))
         {
@@ -47,7 +51,7 @@ public class EventSocket extends WebSocketAdapter
     public void onWebSocketClose(int statusCode, String reason)
     {
         super.onWebSocketClose(statusCode, reason);
-        System.out.println("Socket Closed: [" + statusCode + "] " + reason);
+        log.info("Socket Closed: [" + statusCode + "] " + reason);
         closureLatch.countDown();
     }
 
@@ -60,7 +64,7 @@ public class EventSocket extends WebSocketAdapter
 
     public void awaitClosure() throws InterruptedException
     {
-        System.out.println("Awaiting closure from remote");
+        log.info("Awaiting closure from remote");
         closureLatch.await();
     }
 }
