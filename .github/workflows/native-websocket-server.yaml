@@ -35,7 +35,39 @@ jobs:
           path: |
             build/libs/native-websocket-server-1.0.0-all.jar
 
-  macos-image:
+  macos-amd64-image:
+    needs: [ build-jar-job ]
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+
+      - name: Set up GraalVM (Java 11)
+        uses: graalvm/setup-graalvm@v1.0.6
+        with:
+          version: '${{ env.graalvm_version }}'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Get JAR Artifact'
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: jar
+
+      - name: 'Build Native Image'
+        run: |
+          native-image --install-exit-handlers --no-fallback -H:ReflectionConfigurationResources=reflection-config.json -H:IncludeResources=logback.xml -jar native-websocket-server-1.0.0-all.jar
+
+      - name: Archive Binary
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: native-websocket-server-darwin-amd64
+          path: |
+            native-websocket-server-1.0.0-all
+
+
+  macos-arm64-image:
     needs: [ build-jar-job ]
     runs-on: self-hosted
 
@@ -62,7 +94,7 @@ jobs:
       - name: Archive Binary
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: native-websocket-server-darwin-amd64
+          name: native-websocket-server-darwin-arm64
           path: |
             native-websocket-server-1.0.0-all
 
