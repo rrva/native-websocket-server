@@ -59,7 +59,7 @@ public class EventSocket extends WebSocketAdapter
     public void onWebSocketError(Throwable cause)
     {
         super.onWebSocketError(cause);
-        cause.printStackTrace(System.err);
+        log.error(cause.getMessage(), cause);
     }
 
     public void awaitClosure() throws InterruptedException
