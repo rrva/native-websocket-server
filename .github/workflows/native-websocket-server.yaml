@@ -37,7 +37,7 @@ jobs:
 
   macos-image:
     needs: [ build-jar-job ]
-    runs-on: osx-arm64
+    runs-on: self-hosted,macOS,ARM64
 
     steps:
       - uses: actions/checkout@v3.0.2
